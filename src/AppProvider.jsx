@@ -17,6 +17,7 @@ export function AppProvider ({ children }) {
         newTask : false,
         deleteBoard : false,
         editBoard : false,
+        editTask : false,
     })
 
     const boardNames = [
@@ -42,26 +43,32 @@ export function AppProvider ({ children }) {
     const hideExternal = () => {
         setShownExternal(false);
     }
+    
+    const addNewTask = () => {
+        setShownExternal(true);
+        setExternals({ newTask : true, editTask : false, editBoard : false, deleteBoard : false, newBoard : false })
+    }
+
+    const editTask = () => {
+        setShownExternal(true);
+        setExternals({ newTask : false, editTask : true, editBoard : false, deleteBoard : false, newBoard : false });
+        setBoardSettings({ task : false, board : false });
+    }
 
     const addNewBoard = () => {
         setShownExternal(true);
-        setExternals({ newTask : false, editBoard : false, deleteBoard : false, newBoard : true })
-    }
-
-    const addNewTask = () => {
-        setShownExternal(true);
-        setExternals({ newTask : true, editBoard : false, deleteBoard : false, newBoard : false })
+        setExternals({ newTask : false, editTask : false, editBoard : false, deleteBoard : false, newBoard : true })
     }
 
     const editBoard = () => {
         setShownExternal(true);
-        setExternals({ newTask : false, editBoard : true, deleteBoard : false, newBoard : false });
+        setExternals({ newTask : false, editTask : false, editBoard : true, deleteBoard : false, newBoard : false });
         setBoardSettings({ task : false, board : false });
     }
 
     const deleteBoard = () => {
         setShownExternal(true);
-        setExternals({ newTask : false, editBoard : false, deleteBoard : true, newBoard : false });
+        setExternals({ newTask : false, editTask : false, editBoard : false, deleteBoard : true, newBoard : false });
         setBoardSettings({ task : false, board : false });
     }
 
@@ -83,6 +90,7 @@ export function AppProvider ({ children }) {
             boardSet,
             editBoard,
             deleteBoard,
+            editTask,
         }}
         >
             {children}

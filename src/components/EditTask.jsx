@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
 import { AppContext } from '../AppProvider';
 
-function NewTask() {
+function EditTask() {
     const { hideExternal } = useContext(AppContext);
 
   return (
     <>
-        <div className="new-task">
+        <div className="edit-task">
             <img onClick={hideExternal} className='cancel' src="/icon-cross.svg" alt="cancel" />
-            <h3>add new task</h3>
+            <h3>edit task</h3>
             <form action="POST">
                 <label>title</label>
                 <input type="text" placeholder='e.g. Take coffee break' />
@@ -37,10 +37,10 @@ function NewTask() {
                     <option value="Done">Done</option>
                 </select>
             </form>
-            <button>create task</button>
+            <button>Save changes</button>
         </div>
     </>
   )
 }
 
-export default NewTask;
+export default EditTask;

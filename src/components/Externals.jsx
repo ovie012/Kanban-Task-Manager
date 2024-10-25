@@ -4,6 +4,7 @@ import NewBoard from './NewBoard';
 import NewTask from './NewTask';
 import EditBoard from './EditBoard';
 import DeleteBoard from './DeleteBoard';
+import EditTask from './EditTask';
 
 function Externals() {
   const { externals } = useContext(AppContext);
@@ -15,6 +16,7 @@ function Externals() {
             {externals.newTask && <NewTask />}
             {externals.deleteBoard && <DeleteBoard />}
             {externals.editBoard && <EditBoard />}
+            {externals.editTask && <EditTask />}
         </div>
     </>
   )
