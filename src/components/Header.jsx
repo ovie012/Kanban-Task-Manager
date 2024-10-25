@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { AppContext } from '../AppProvider';
 
 function Header() {
-    const { lightMode, addNewTask, boardSet, boardSettings, editBoard, deleteBoard, editTask } = useContext(AppContext)
+    const { lightMode, addNewTask, boardSet, boardSettings, editBoard, deleteBoard, hidden, hide, editTask } = useContext(AppContext)
 
   return (
     <>
@@ -10,10 +10,13 @@ function Header() {
             <section className="header-logo">
                 <img className='light-logo' src={`/logo-${lightMode ? 'dark' : 'light'}.svg`} alt="logo" />
             </section>
-            <h1 onClick={editTask}>platform launch</h1> 
+            <h1
+             onClick={hide}
+            //  onClick={editTask}
+            > <img src="logo-mobile.svg" alt="logo" /> platform launch <img src={`/icon-chevron-${hidden ? 'up' : 'down'}.svg`} alt="sidebar" /> </h1> 
             {/* remove the onClick after youre done setting the edit task to its proper channel */}
             <section className="buttons">
-                <button onClick={() => { addNewTask(); }}>+ add new task</button>
+                <button onClick={() => { addNewTask(); }}>+ <span> add new task</span></button>
                 <img onClick={() => {boardSet();}} src="/icon-vertical-ellipsis.svg" alt="click for more" />
             </section>
             {boardSettings.board && 

@@ -5,6 +5,7 @@ import NewTask from './NewTask';
 import EditBoard from './EditBoard';
 import DeleteBoard from './DeleteBoard';
 import EditTask from './EditTask';
+import SidebarKanban from './SidebarKanban';
 
 function Externals() {
   const { externals } = useContext(AppContext);
