@@ -1002,7 +1002,6 @@
   .edit-task {
     width: 90%;
     padding: 5%;
-    /* z-index: 1000; */
   }
 
   .new-board img.cancel,
@@ -1017,6 +1016,7 @@
   .edit-board h3,
   .edit-task h3 {
     font-size: 1rem;
+    margin-bottom: 3%;
   }
 
   .new-board form label,
@@ -1024,6 +1024,24 @@
   .edit-board form label,
   .edit-task form label {
     font-size: 0.7rem;
+  }
+
+  .new-board form,
+  .new-task form,
+  .edit-board form,
+  .edit-task form {
+    margin-bottom: 10px;
+  }
+
+  .new-board form input,
+  .new-task form input,
+  .new-task form select,
+  .edit-board form input,
+  .edit-task form input,
+  .edit-task form select,
+  .edit-task form textarea,
+  .new-task form textarea {
+    height: 30px;
   }
 
   .new-board form input::placeholder,

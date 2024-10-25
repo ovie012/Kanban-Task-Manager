@@ -23,10 +23,10 @@ function EditTask() {
                     <input type="text" placeholder='e.g. Make coffee' />
                     <img src="/icon-cross.svg" alt="cancel" />
                 </div>
-                <div>
+                {/* <div>
                     <input type="text" placeholder='e.g. Drink coffee and smile' />
                     <img src="/icon-cross.svg" alt="cancel" />
-                </div>
+                </div> */}
             </form>
             <button>+ add new subtask</button>
             <form action="POST">
