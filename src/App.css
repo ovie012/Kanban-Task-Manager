@@ -63,6 +63,7 @@
   background: #20212c;
   transition: 0.3s ease-in-out;
   border-bottom: 1px solid #3E3F4E;
+  z-index: 10;
 }
 
 .container.light-mode .header {
@@ -471,10 +472,16 @@
     bottom: 0;
     left: 0;
     background: hsla(0, 0%, 0%, 0.5);
+    /* background: red; */
     display: flex;
     justify-content: center;
     padding-top: 5%;
     overflow: hidden;
+    z-index: 1000;
+   }
+
+   .sidebar-kanban-container.hidden {
+    z-index: -1;
    }
    
   .sidebar-kanban {
@@ -604,6 +611,12 @@
   
   .add-new-column button {
     padding: 4% 6%;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .column {
+    z-index: 0;
   }
 }
 
@@ -978,5 +991,68 @@
 
   .delete-board p {
     margin-bottom: 25px;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .new-board,
+  .new-task,
+  .edit-board,
+  .delete-board,
+  .edit-task {
+    width: 90%;
+    padding: 5%;
+    /* z-index: 1000; */
+  }
+
+  .new-board img.cancel,
+  .new-task img.cancel,
+  .edit-board img.cancel,
+  .edit-task img.cancel {
+    top: 5%;
+  }
+
+  .new-board h3,
+  .new-task h3,
+  .edit-board h3,
+  .edit-task h3 {
+    font-size: 1rem;
+  }
+
+  .new-board form label,
+  .new-task form label,
+  .edit-board form label,
+  .edit-task form label {
+    font-size: 0.7rem;
+  }
+
+  .new-board form input::placeholder,
+  .new-task form input::placeholder,
+  .edit-board form input::placeholder,
+  .edit-task form input::placeholder,
+  .new-task form textarea::placeholder,
+  .edit-task form textarea::placeholder {
+    font-size: 0.6rem;
+  }
+
+  .delete-board {
+    z-index: 1000;
+  }
+
+  .delete-board h4 {
+    color: #EA5555;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: none;
+    margin-bottom: 15px;
+  }
+
+  .delete-board p {
+    color: #828FA3;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: none;
+    line-height: 20px;
+    margin-bottom: 15px;
   }
 }

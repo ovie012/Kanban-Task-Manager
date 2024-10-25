@@ -6,7 +6,7 @@ function SidebarKanban() {
 
   return (
     <>
-      <div className="sidebar-kanban-container">
+      <div className={`sidebar-kanban-container ${hidden ? 'hidden' : ''}`}>
         <div className={`sidebar-kanban ${hidden ? 'hidden' : ''} ${lightMode ? 'light-mode' : ''}`}>
           <section className='logo'>
             <img className='light-logo' src={`/logo-${lightMode ? 'dark' : 'light'}.svg`} alt="logo" />
