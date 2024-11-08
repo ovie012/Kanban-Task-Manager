@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { AppContext } from '../AppProvider';
 
 function Header() {
-    const { lightMode, addNewTask, boardSet, boardSettings, editBoard, deleteBoard, hidden, hide, editTask } = useContext(AppContext)
+    const { lightMode, addNewTask, boardSet, boardSettings, editBoard, deleteBoard, hidden, hide, editTask, editColumn, } = useContext(AppContext)
 
   return (
     <>
@@ -21,7 +21,7 @@ function Header() {
             </section>
             {boardSettings.board && 
                 <section className="board-settings">
-                    <h5 onClick={editBoard}>edit board</h5>
+                    <h5 onClick={editColumn}>edit board</h5>
                     <h6 onClick={deleteBoard}>delete board</h6>
                 </section>
             }

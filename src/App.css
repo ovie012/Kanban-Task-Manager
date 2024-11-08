@@ -9,6 +9,10 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Plus Jakarta Sans", sans-serif;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   /* transition: 0.3s ease-in-out; */
 }
 
@@ -63,7 +67,6 @@
   background: #20212c;
   transition: 0.3s ease-in-out;
   border-bottom: 1px solid #3E3F4E;
-  z-index: 10;
 }
 
 .container.light-mode .header {
@@ -139,7 +142,8 @@
   width: 2%;
 }
 
-.board-settings {
+.board-settings,
+.task-settings {
   position: fixed;
   background: #080913;
   border-radius: 5px;
@@ -149,24 +153,29 @@
   right: 10px;
 }
 
-.container.light-mode .board-settings {
+.container.light-mode .board-settings,
+.container.light-mode .task-settings {
   background: #fff;
 }
 
 .board-settings h5,
-.board-settings h6 {
+.board-settings h6,
+.task-settings h5,
+.task-settings h6 {
   font-size: 0.8rem;
   text-transform: capitalize;
   font-weight: 600;
   cursor: pointer;
 }
 
-.board-settings h5 {
+.board-settings h5,
+.task-settings h5 {
   margin-bottom: 20px;
   color: #828FA3;
 }
 
-.board-settings h6 {
+.board-settings h6,
+.task-settings h6 {
   color: #EA5555;
 }
 
@@ -192,17 +201,24 @@
     font-size: 0.75rem;
   }
   
-  .board-settings {
+  .board-settings,
+  .task-settings {
     width: 23%;
   }
   
   .board-settings h5,
-  .board-settings h6 {
+  .board-settings h6,
+  .task-settings h5,
+  .task-settings h6 {
     font-size: 0.7rem;
   }
 }
 
 @media only screen and (max-width: 500px) {
+
+  .header {
+    z-index: 10;
+  }
   
   .header-logo {
     display: none;
@@ -243,7 +259,8 @@
     width: 7%;
   }
   
-  .board-settings {
+  .board-settings,
+  .task-settings {
     width: 30%;
   }
 }
@@ -251,7 +268,8 @@
 /* SIDEBAR STYLINGS */
 
 .sidebar-kanban-container {
- min-width: 20%;
+  min-width: 20%;
+  transition: 0.3s ease-in-out;
 }
 
 .sidebar-kanban {
@@ -264,8 +282,8 @@
   transition: 0.3s ease-in-out;
 }
 
-.sidebar-kanban.hidden {
-  margin-left: -100%;
+.sidebar-kanban-container.hidden {
+  margin-left: -20%;
 }
 
 .sidebar-kanban.light-mode {
@@ -634,33 +652,44 @@
   background: hsla(0, 0%, 0%, 0.5);
 }
 
-/* NEW BOARD, NEW TASK, EDIT TASK, EDIT BOARD, DELETE BOARD */
+/* NEW BOARD, NEW TASK, EDIT TASK, EDIT BOARD, DELETE BOARD, EDIT COLUMN */
 
 .new-board,
 .new-task,
 .edit-board,
 .delete-board,
-.edit-task {
+.delete-task,
+.edit-task,
+.edit-column {
   width: 35%;
-  background: #20212c;
+  background: #2B2C37;
   padding: 1.5%;
   border-radius: 5px;
   position: relative;
   text-transform: capitalize;
+  overscroll-behavior-y: contain;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  max-height: 80%;
+  margin-top: 5%;
 }
 
 .container.light-mode .new-board,
 .container.light-mode .new-task,
 .container.light-mode .edit-board,
 .container.light-mode .delete-board,
-.container.light-mode .edit-task {
+.container.light-mode .delete-task,
+.container.light-mode .edit-task,
+.container.light-mode .edit-column {
   background: #fff;
 }
 
 .new-board img.cancel,
 .new-task img.cancel,
 .edit-board img.cancel,
-.edit-task img.cancel {
+.edit-task img.cancel,
+.edit-column img.cancel {
   position: absolute;
   width: 10px;
   right: 3%;
@@ -671,7 +700,8 @@
 .new-board h3,
 .new-task h3,
 .edit-board h3,
-.edit-task h3 {
+.edit-task h3,
+.edit-column h2 {
   font-size: 0.9rem;
   font-weight: 600;
   margin-bottom: 3%;
@@ -680,7 +710,8 @@
 .new-board form,
 .new-task form,
 .edit-board form,
-.edit-task form {
+.edit-task form,
+.edit-column form {
   display: flex;
   flex-direction: column;
   margin-bottom: 10px;
@@ -689,7 +720,8 @@
 .new-board form label,
 .new-task form label,
 .edit-board form label,
-.edit-task form label {
+.edit-task form label,
+.edit-column form label {
   color: #fff;
   font-size: 0.75rem;
   font-weight: 600;
@@ -710,7 +742,10 @@
 .edit-task form input,
 .edit-task form select,
 .edit-task form textarea,
-.new-task form textarea {
+.new-task form textarea,
+.edit-column form input,
+.edit-column form select,
+.edit-column form textarea {
   background: transparent;
   outline: none;
   padding: 1% 3%;
@@ -727,7 +762,9 @@
 .edit-board form input:focus,
 .edit-task form input:focus,
 .new-task form textarea:focus,
-.edit-task form textarea:focus {
+.edit-task form textarea:focus,
+.edit-column form input:focus,
+.edit-column form textarea:focus {
   border: 1.5px solid #635FC7;
 }
 
@@ -736,7 +773,9 @@
 .edit-board form input::placeholder,
 .edit-task form input::placeholder,
 .new-task form textarea::placeholder,
-.edit-task form textarea::placeholder {
+.edit-task form textarea::placeholder,
+.edit-column form input::placeholder,
+.edit-column form textarea::placeholder {
   font-size: 0.7rem;
   color: hsla(216, 15%, 57%, 25%);
   text-transform: none;
@@ -823,7 +862,8 @@
 }
 
 .new-task select option,
-.edit-task select option {
+.edit-task select option,
+.edit-column select option {
   color: #fff;
   background: #20212C;
   border: none;
@@ -831,22 +871,26 @@
 }
 
 .container.light-mode .new-task select,
-.container.light-mode .edit-task select {
+.container.light-mode .edit-task select,
+.container.light-mode .edit-column select {
   color: #000112;
 }
 
 .new-task select,
-.edit-task select {
+.edit-task select,
+.edit-column select {
   color: #fff;
 }
 
 .container.light-mode .new-task select option,
-.container.light-mode .edit-task select option {
+.container.light-mode .edit-task select option,
+.container.light-mode .edit-column select option {
   color: #828FA3;
   background: #fff;
 }
 
-.delete-board h4 {
+.delete-board h4,
+.delete-task h4 {
   color: #EA5555;
   font-size: 0.9rem;
   font-weight: 600;
@@ -854,7 +898,8 @@
   margin-bottom: 15px;
 }
 
-.delete-board p {
+.delete-board p,
+.delete-task p {
   color: #828FA3;
   font-size: 0.75rem;
   font-weight: 600;
@@ -863,13 +908,15 @@
   margin-bottom: 15px;
 }
 
-.delete-board div {
+.delete-board div,
+.delete-task div {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.delete-board div button {
+.delete-board div button,
+.delete-task div button {
   width: 47%;
   height: 35px;
   border-radius: 50px;
@@ -882,25 +929,30 @@
   cursor: pointer;
 }
 
-.delete-board div button:nth-of-type(1) {
+.delete-board div button:nth-of-type(1),
+.delete-task div button:nth-of-type(1) {
   color: #fff;
   background: #EA5555;
 }
 
-.delete-board div button:nth-of-type(1):hover {
+.delete-board div button:nth-of-type(1):hover,
+.delete-task div button:nth-of-type(1):hover {
   background: #FF9898;
 }
 
-.delete-board div button:nth-of-type(2) {
+.delete-board div button:nth-of-type(2),
+.delete-task div button:nth-of-type(2) {
   color: #635FC7;
   background: #fff;
 }
 
-.container.light-mode .delete-board div button:nth-of-type(2) {
+.container.light-mode .delete-board div button:nth-of-type(2),
+.container.light-mode .delete-task div button:nth-of-type(2) {
   background: hsla(242, 48%, 58%, 0.1);
 }
 
-.container.light-mode .delete-board div button:nth-of-type(2):hover {
+.container.light-mode .delete-board div button:nth-of-type(2):hover,
+.container.light-mode .delete-task div button:nth-of-type(2):hover {
   background: hsla(242, 48%, 58%, 0.25);
 }
 
@@ -922,12 +974,114 @@
   vertical-align: top;
 }
 
+.edit-column {
+  overflow: visible;
+  overscroll-behavior-y: contain;
+  display: flex;
+}
+
+.edit-column-wrapper {
+  max-height: 100%;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.edit-column-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.edit-column-wrapper img {
+  cursor: pointer;
+}
+
+.edit-column section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.edit-column img.cancel {
+  top: 10px;
+}
+
+.edit-column p {
+  color: #828FA3;
+  font-size: 0.7rem;
+  line-height: 18px;
+  text-transform: none;
+  margin-bottom: 20px;
+}
+
+.edit-column h2 {
+  width: 80%;
+}
+
+.task-settings {
+  position: absolute;
+  width: 40%;
+  top: 16%;
+  right: -10%;
+  padding: 3%;
+  display: block !important;
+}
+
+.edit-column form {
+  margin-bottom: 20px;
+}
+
+.edit-column form section {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 15px;
+  background: #20212C;
+  padding: 2% 3%;
+  border-radius: 3px;
+}
+
+.edit-column form section input[type="checkbox"] {
+  cursor: pointer;
+  background-color: transparent;
+  /* appearance: none; */
+}
+
+/* .edit-column form section input[type="checkbox"]:checked {
+  cursor: pointer;
+  background-color: transparent;
+  appearance: auto;
+} */
+
+.container.light-mode .edit-column form section {
+  background: #F4F7FD;
+}
+
+.edit-column form section h3 {
+  font-size: 0.65rem;
+}
+
+.edit-column label {
+  color: #fff;
+}
+
+.container.light-mode .edit-column label {
+  color: #000112;
+}
+
+.subtask-selected h3 {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+
 @media only screen and (max-width: 800px) {
   .new-board,
   .new-task,
   .edit-board,
   .delete-board,
-  .edit-task {
+  .edit-task,
+  .edit-column {
     width: 60%;
     padding: 4%;
   }
@@ -935,14 +1089,16 @@
   .new-board h3,
   .new-task h3,
   .edit-board h3,
-  .edit-task h3 {
+  .edit-task h3,
+  .edit-column h3 {
     margin-bottom: 5%;
   }
 
   .new-board form,
   .new-task form,
   .edit-board form,
-  .edit-task form {
+  .edit-task form,
+  .edit-column form {
     margin-bottom: 15px;
   }
 
@@ -953,7 +1109,9 @@
   .edit-task form input,
   .edit-task form select,
   .edit-task form textarea,
-  .new-task form textarea {
+  .new-task form textarea,
+  .edit-column form input,
+  .edit-column form select {
     height: 35px;
   }
 
@@ -985,11 +1143,13 @@
     margin-bottom: 20px;
   }
 
-  .delete-board h4 {
+  .delete-board h4,
+  .delete-task h4 {
     margin-bottom: 25px;
   }
 
-  .delete-board p {
+  .delete-board p,
+  .delete-task p {
     margin-bottom: 25px;
   }
 }
@@ -999,7 +1159,8 @@
   .new-task,
   .edit-board,
   .delete-board,
-  .edit-task {
+  .edit-task,
+  .edit-column {
     width: 90%;
     padding: 5%;
   }
@@ -1007,14 +1168,16 @@
   .new-board img.cancel,
   .new-task img.cancel,
   .edit-board img.cancel,
-  .edit-task img.cancel {
+  .edit-task img.cancel,
+  .edit-column img.cancel {
     top: 5%;
   }
 
   .new-board h3,
   .new-task h3,
   .edit-board h3,
-  .edit-task h3 {
+  .edit-task h3,
+  .edit-column h3 {
     font-size: 1rem;
     margin-bottom: 3%;
   }
@@ -1022,14 +1185,16 @@
   .new-board form label,
   .new-task form label,
   .edit-board form label,
-  .edit-task form label {
+  .edit-task form label,
+  .edit-column form label {
     font-size: 0.7rem;
   }
 
   .new-board form,
   .new-task form,
   .edit-board form,
-  .edit-task form {
+  .edit-task form,
+  .edit-column form {
     margin-bottom: 10px;
   }
 
@@ -1040,7 +1205,8 @@
   .edit-task form input,
   .edit-task form select,
   .edit-task form textarea,
-  .new-task form textarea {
+  .new-task form textarea,
+  .edit-column form select {
     height: 30px;
   }
 
@@ -1053,11 +1219,13 @@
     font-size: 0.6rem;
   }
 
-  .delete-board {
+  .delete-board,
+  .delete-task {
     z-index: 1000;
   }
 
-  .delete-board h4 {
+  .delete-board h4,
+  .delete-task h4 {
     color: #EA5555;
     font-size: 0.9rem;
     font-weight: 600;
@@ -1065,7 +1233,8 @@
     margin-bottom: 15px;
   }
 
-  .delete-board p {
+  .delete-board p,
+  .delete-task p {
     color: #828FA3;
     font-size: 0.75rem;
     font-weight: 600;

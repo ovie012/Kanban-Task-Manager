@@ -5,6 +5,8 @@ import NewTask from './NewTask';
 import EditBoard from './EditBoard';
 import DeleteBoard from './DeleteBoard';
 import EditTask from './EditTask';
+import EditColumn from './EditColumn';
+import DeleteTask from './DeleteTask';
 import SidebarKanban from './SidebarKanban';
 
 function Externals() {
@@ -18,6 +20,8 @@ function Externals() {
             {externals.deleteBoard && <DeleteBoard />}
             {externals.editBoard && <EditBoard />}
             {externals.editTask && <EditTask />}
+            {externals.editColumn && <EditColumn />}
+            {externals.deleteTask && <DeleteTask />}
         </div>
     </>
   )

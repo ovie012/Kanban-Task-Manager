@@ -9,7 +9,7 @@ export function AppProvider ({ children }) {
     const [boardSettings, setBoardSettings] = useState({
         board : false,
         task : false,
-    })
+    });
     const [selected, setSelected] = useState(null);
     const [shownExternal, setShownExternal] = useState(false);
     const [externals, setExternals] = useState({
@@ -18,11 +18,20 @@ export function AppProvider ({ children }) {
         deleteBoard : false,
         editBoard : false,
         editTask : false,
-    })
+        deleteTask : false,
+        editColumn : false,
+    });
+    const [subtaskSelected, setSubtaskSelected] = useState([]);
 
     const boardNames = [
       'Platform Launch', 'marketing plans', 'roadmap'
     ]
+
+    const subtasks = [
+        'Research competitor pricing and business models',
+        'Outline a business model that works for our solution',
+        'Talk to potential customers about our proposed solution and ask for fair price expectancy'
+    ];
 
     const select = (item) => {
         setSelected(item);
@@ -40,37 +49,62 @@ export function AppProvider ({ children }) {
         setBoardSettings({ task : false, board : !boardSettings.board });
     }
 
+    const taskSet = () => {
+        setBoardSettings({ task : !boardSettings.task, board : false});
+    }
+
     const hideExternal = () => {
         setShownExternal(false);
+        setSubtaskSelected([]);
     }
     
     const addNewTask = () => {
         setShownExternal(true);
-        setExternals({ newTask : true, editTask : false, editBoard : false, deleteBoard : false, newBoard : false })
+        setExternals({ newTask : true, deleteTask : false, editColumn : false, editTask : false, editBoard : false, deleteBoard : false, newBoard : false })
     }
 
     const editTask = () => {
         setShownExternal(true);
-        setExternals({ newTask : false, editTask : true, editBoard : false, deleteBoard : false, newBoard : false });
+        setExternals({ newTask : false, deleteTask : false, editColumn : false, editTask : true, editBoard : false, deleteBoard : false, newBoard : false });
         setBoardSettings({ task : false, board : false });
     }
 
     const addNewBoard = () => {
         setShownExternal(true);
-        setExternals({ newTask : false, editTask : false, editBoard : false, deleteBoard : false, newBoard : true })
+        setExternals({ newTask : false, deleteTask : false, editColumn : false, editTask : false, editBoard : false, deleteBoard : false, newBoard : true })
     }
 
     const editBoard = () => {
         setShownExternal(true);
-        setExternals({ newTask : false, editTask : false, editBoard : true, deleteBoard : false, newBoard : false });
+        setExternals({ newTask : false, deleteTask : false, editColumn : false, editTask : false, editBoard : true, deleteBoard : false, newBoard : false });
         setBoardSettings({ task : false, board : false });
     }
 
     const deleteBoard = () => {
         setShownExternal(true);
-        setExternals({ newTask : false, editTask : false, editBoard : false, deleteBoard : true, newBoard : false });
+        setExternals({ newTask : false, deleteTask : false, editColumn : false, editTask : false, editBoard : false, deleteBoard : true, newBoard : false });
         setBoardSettings({ task : false, board : false });
     }
+
+    const editColumn = () => {
+        setShownExternal(true);
+        setExternals({ newTask : false, deleteTask : false, editColumn : true, editTask : false, editBoard : false, deleteBoard : false, newBoard : false });
+    }
+
+    const deleteTask = () => {
+        setShownExternal(true);
+        setExternals({ newTask : false, deleteTask : true, editColumn : false, editTask : false, editBoard : false, deleteBoard : false, newBoard : false });
+    };
+
+    const subtaskSelection = (item) => {
+        setSubtaskSelected((prevSelectedItem) => {
+            if (prevSelectedItem.includes(item)) {
+                return prevSelectedItem.filter((i) => i !== item)
+            } else {
+                return [...prevSelectedItem, item]
+            }
+        });
+    };
 
     return (
         <AppContext.Provider value={{
@@ -91,6 +125,12 @@ export function AppProvider ({ children }) {
             editBoard,
             deleteBoard,
             editTask,
+            editColumn,
+            taskSet,
+            subtaskSelected, 
+            subtaskSelection,
+            subtasks,
+            deleteTask,
         }}
         >
             {children}
