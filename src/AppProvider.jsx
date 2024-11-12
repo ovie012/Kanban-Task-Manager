@@ -6,6 +6,7 @@ export const AppContext = createContext();
 export function AppProvider ({ children }) {
     const [lightMode, setLightMode] = useState(false);
     const [hidden, setHidden] = useState(false);
+    const [columnChange, setColumnChange] = useState(false);
     const [boardSettings, setBoardSettings] = useState({
         board : false,
         task : false,
@@ -25,13 +26,43 @@ export function AppProvider ({ children }) {
 
     const boardNames = [
       'Platform Launch', 'marketing plans', 'roadmap'
-    ]
+    ];
 
     const subtasks = [
         'Research competitor pricing and business models',
         'Outline a business model that works for our solution',
         'Talk to potential customers about our proposed solution and ask for fair price expectancy'
     ];
+
+    const eachTask = [
+        {
+            taskTitle : 'Building UI for onboarding flow',
+        },
+        {
+            taskTitle : 'Create paper prototypes and conduct 10 usability tests with potential customers',
+        },
+        {
+            taskTitle : 'Research pricing points of various competitors and trial different business models',
+        },
+        {
+            taskTitle : 'Building UI for onboarding flow',
+        },
+        {
+            taskTitle : 'Building UI for onboarding flow',
+        },
+        {
+            taskTitle : 'Building UI for onboarding flow',
+        },
+        {
+            taskTitle : 'Building UI for onboarding flow',
+        },
+        {
+            taskTitle : 'Building UI for onboarding flow',
+        },
+        {
+            taskTitle : 'Building UI for onboarding flow',
+        },
+    ]
 
     const select = (item) => {
         setSelected(item);
@@ -59,9 +90,14 @@ export function AppProvider ({ children }) {
     }
     
     const addNewTask = () => {
-        setShownExternal(true);
-        setExternals({ newTask : true, deleteTask : false, editColumn : false, editTask : false, editBoard : false, deleteBoard : false, newBoard : false })
-    }
+        if (columnChange) {
+            setShownExternal(true);
+            setExternals({ newTask : true, deleteTask : false, editColumn : false, editTask : false, editBoard : false, deleteBoard : false, newBoard : false })
+        } else {
+            setShownExternal(false);
+            setExternals({ ...externals, newTask : false})
+        }
+    };
 
     const editTask = () => {
         setShownExternal(true);
@@ -106,6 +142,10 @@ export function AppProvider ({ children }) {
         });
     };
 
+    const columnControl = () => {
+        setColumnChange(!columnChange);
+    }
+
     return (
         <AppContext.Provider value={{
             whichMode,
@@ -131,6 +171,9 @@ export function AppProvider ({ children }) {
             subtaskSelection,
             subtasks,
             deleteTask,
+            eachTask,
+            columnChange,
+            columnControl,
         }}
         >
             {children}
